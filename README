@@ -1,0 +1,45 @@
+Системные требования
+  PHP >= 5.2.0
+  MySQL >= 5.1
+  Apache (mod_write) 2.*
+
+Установка
+
+Для установки необходимо прописать данные для коннекта к базе в файле config/database.php
+Также нужно создать саму базу
+
+
+CREATE TABLE  `articles` (
+  `id` int(12) NOT NULL auto_increment,
+  `user_id` int(12) default NULL,
+  `title` varchar(255) default NULL,
+  `body` text NOT NULL,
+  `updated_at` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL default '0000-00-00 00:00:00',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE  `comments` (
+  `id` int(12) NOT NULL auto_increment,
+  `article_id` int(12) default NULL,
+  `user_id` int(12) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `url` varchar(150) NOT NULL,
+  `body` text NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE  `users` (
+  `id` int(11) NOT NULL auto_increment,
+  `login` varchar(16) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `salt` varchar(32) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `session_token_expires_at` int(12) NOT NULL,
+  `session_token` varchar(32) NOT NULL,
+  `session_expires_time_shift` int(11) NOT NULL default '21600',
+  `session_ip` varchar(15) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
