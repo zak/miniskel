@@ -7,8 +7,7 @@
  */
 class Articles extends Model {
 
-  private $fields = array(
-    'id' => array(),
+  protected $fields = array(
     'title' => array(),
     'teaser' => array(),
     'body' => array(),

@@ -6,7 +6,6 @@
 
  if (!file_exists('./config/database.php')) {
 
-   var_export($_POST);
    if (isset($_POST['host']) && isset($_POST['user']) && isset($_POST['pass']) && isset($_POST['name']) &&
       ($db = mysql_connect($_POST['host'], $_POST['user'], $_POST['pass'])) &&
       (mysql_select_db($_POST['name'], $db))) {

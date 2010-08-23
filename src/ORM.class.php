@@ -35,7 +35,7 @@ class ORM {
   function query($sql) {
 //    print '<br/><b>SQL</b> - '.$sql.'<br/>';
     $result = array();
-    $q = mysql_query($sql, $this->db) or die(mysql_error());
+    $q = mysql_query($sql, $this->db) or die(mysql_error().'<br/>'.$sql);
     while($r = mysql_fetch_array($q, MYSQL_ASSOC)) {
       $result[] = $r;
     }
@@ -44,7 +44,7 @@ class ORM {
 
   function insert_query($sql) {
 //    print '<br/><b>SQL</b> - '.$sql.'<br/>';
-    mysql_query($sql, $this->db) or die(mysql_error());
+    mysql_query($sql, $this->db) or die(mysql_error().'<br/>'.$sql);
     return mysql_insert_id($this->db);
   }
 
@@ -55,3 +55,4 @@ class ORM {
 
 }
 ?>
+

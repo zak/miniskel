@@ -15,7 +15,7 @@ class Validation {
   }
 
   public static function email($data) {
-    if (preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5})$", $data)){
+    if (preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5})$", $data))
       return true;
     else
       return 'Формат email не верен.';
@@ -29,7 +29,7 @@ class Model {
   private $database;
   private $data = array();
   // description fields
-  private $fields = array();
+  protected $fields = array();
   private $errors = array();
 
   function validate($validator, $value, $field) {
@@ -113,6 +113,8 @@ class Model {
   function save() {
     if (empty($this->arrors)) {
       $query = "UPDATE {$this->table} SET ";
+      var_dump($this->fields);
+      var_dump($this->data);
       foreach ($this->fields as $field => $_) {
         if (isset($this->data[$field])) {
           $value = mysql_real_escape_string($this->data[$field]);

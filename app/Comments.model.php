@@ -3,8 +3,7 @@
 
 class Comments extends Model {
 
-   private $fields = array(
-    'id' => array(),
+   protected $fields = array(
     'article_id' => array(),
     'user_id' => array(),
     'name' => array(),
