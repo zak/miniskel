@@ -30,13 +30,16 @@ class ControllerFactory {
 
     function run() {
       self::$instance = $this;
-      
+
 //      print "<br/><b>Controller->run()</b> - ";
 //      print_r($this->items);
 //      print "<br/>";
 
       $this->controller = $this->factory($this->get('controller'));
+      // before after
+      if (method_exists($this->controller, 'before')) call_user_func(Array($this->controller, 'before'), $this->items);
       call_user_func(Array($this->controller, $this->get('method')), $this->items); // надобы передать параметры методу func_get_args()
+      //if (method_exists($this->controller, 'after')) call_user_func(Array($this->controller, 'after'), $this->items);
     }
 
     public static function instance() {
@@ -52,3 +55,4 @@ class ControllerFactory {
     }
 }
 ?>
+

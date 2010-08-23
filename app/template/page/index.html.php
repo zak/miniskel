@@ -10,11 +10,14 @@
           <a href="/page/{$article->id}/delete">Удалить</a>
         </div>
 EOD;
+    $content = $article->teaser == '' ? $article->body : $article->teaser;
     print <<<EOD
       <div id="article-{$article->id}" class="article">
         <h2><a href="/page/{$article->id}">{$article->title}</a></h2>
+        <span class="data">{$article->public_at}</span>
+        <span class="author"></span>
         {$action}
-        <p>{$article->body}</p>
+        <p>{$content}</p>
       </div>
 EOD;
   }

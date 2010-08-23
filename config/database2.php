@@ -1,6 +1,11 @@
-<?php $database = array (
+<?php
+
+$database = array(
   'host' => 'localhost',
   'user' => 'root',
   'pass' => 'zakzlo',
-  'name' => 'miniskel',
-) ?>
+  'name' => 'miniskel'
+);
+
+?>
+

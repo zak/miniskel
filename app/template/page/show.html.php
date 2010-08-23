@@ -6,7 +6,7 @@
     print "<div class=\"comment{$cclass}\" id=\"comment-{$comment->id}\"><h2>";
     if ($comment->url) {
       print "<a href=\"{$comment->url}\" class=\"url\">{$comment->name}</a>";
-      if ($comment->user_id == $params->user['id'] || $data->user_id == $params->user['id'])
+      if ($params->user && ($comment->user_id == $params->user['id'] || $data->user_id == $params->user['id']))
         print "<a href=\"/comment/{$comment->id}/delete\">удалить</a>";
     } else
       print $comment->name;

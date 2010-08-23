@@ -6,8 +6,8 @@
  */
 class User extends Model {
 
-  public static function find($arg=null) {
-    return parent::find($arg, 'users');
+  protected static function getMyClass() {
+    return get_class();
   }
 
   public static function signup($params) {
@@ -22,17 +22,17 @@ class User extends Model {
       return false; // 'Логин или эл.адресс не уникален.';
     }
   }
-  
+
   public static function authenticate($login, $pass) {
     $table_name = 'users';
     $query = "SELECT * FROM {$table_name} WHERE login = '{$login}' LIMIT 0, 1";
 
     $db = ORM::instance();
     $query_result = $db->query($query);
-    $user = $query_result[0];
-    if ($user['password'] == md5($pass.$user['salt'])) {
+    //$user = $query_result[0];
+    if ((!empty($query_result)) && ($user = $query_result[0]) && ($user['password'] == md5($pass.$user['salt']))) {
       $session_token = md5(base64_encode(time()).$user['salt']);
-      
+
       $db->insert_query("UPDATE {$table_name} SET session_token = '{$session_token}', session_token_expires_at = '".(time()+$user['session_expires_time_shift']).'\', session_ip = \''.$_SERVER['REMOTE_ADDR']."' WHERE id = '{$user['id']}'");
       setcookie("session_token", $session_token, time()+$user['session_expires_time_shift']);
       return true;
@@ -51,3 +51,4 @@ class User extends Model {
   }
 }
 ?>
+

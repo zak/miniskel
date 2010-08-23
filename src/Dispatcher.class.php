@@ -51,19 +51,32 @@ class Dispatcher {
       $controller->get = $this->get;
       $controller->cookie = $this->cookie;
 
-      $controller->user = User::authenticate_by_cookie($this->cookie['session_token']);
-      
+      $controller->user = isset($this->cookie['session_token']) ? User::authenticate_by_cookie($this->cookie['session_token']) : false;
+
       $controller->run();
 
     }
 
-    // уберает экранирование символов
-    protected function _stripHttpSlashes($data, $result=array()) {
+    // уберает магическое экранирование символов '\'
+    protected function _stripHttpSlashes($data) {
+      $result=array();
       foreach($data as $k => $v) {
         if(is_array($v))
           $result[$k] = $this->_stripHttpSlashes($v);
         else
           $result[$k] = stripslashes($v);
+      }
+      return $result;
+    }
+
+    // экранирование символов
+    protected function _escapeString($data) {
+      $result=array();
+      foreach($data as $k => $v) {
+        if(is_array($v))
+          $result[mysql_real_escape_string($k)] = $this->_escapeString($v);
+        else
+          $result[mysql_real_escape_string($k)] = mysql_real_escape_string($v);
       }
       return $result;
     }
@@ -81,9 +94,9 @@ class Dispatcher {
 //          print('<br/><b>path</b> - ');
 //          print_r($route['path']);
 //          print('<br/><br/>');
-          
+
           if ($options = $this->path_match($route['path'])) break;
-          
+
         }
       }
       $controller->sets($options);
@@ -108,3 +121,4 @@ class Dispatcher {
 
 }
 ?>
+

@@ -2,15 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title><?php (isset($title)) ? $title.' ' : '' ?>Гостевая книга ))</title>
+        <title><?php print (isset($title)) ? $title.' - ' : '' ?>Гостевая книга</title>
         <link href="/stylesheets/style.css?1230116979" media="screen" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <div id="main">
           <div id="header">
+            <img id="logo" src="http://www.softlinegroup.com/images/softline_logo.png" alt="SoftLine"/>
             <h1 id="title">Тестовое задание "Гостевая книга переросток"</h1>
             <div id="header-nav">
-            <?php if ($params->user) { ?>
+            <?php if ((isset($params)) && ($params->user)) { ?>
               <p><a href="/page">Главная</a> | <a href="/page/add">Добавить новую заметку</a> | <a href="/logoff">Выход</a></p>
             <?php } else { ?>
 						<div id="header-nav-login-forms">
@@ -26,9 +27,9 @@
 						<?php } ?>
 					</div>
           </div>
-          
+
           <div id="content">
-            <?php if (isset($template)) { include 'app/template/'.strtolower(get_class($this))."/{$template}"; } ?>
+            <?php if (isset($template)) { include 'app/template/'.$classname."/{$template}"; } ?>
           </div>
           <div style="height:71px;"></div>
         </div>
@@ -40,3 +41,4 @@
         </div>
     </body>
 </html>
+

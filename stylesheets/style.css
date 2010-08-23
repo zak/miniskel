@@ -93,7 +93,7 @@ th {
   vertical-align:top;
 }
 
-/* 
+/*
 * main
 */
 
@@ -160,7 +160,7 @@ th {
   display: block;
 }
 .header-nav-login-separator {
-	
+
 	margin: 3px 0;
 	padding: 0;
 }
@@ -192,6 +192,10 @@ th {
   color: #A9A9A9;
   font-size: 1.1em;
   margin: 0 0 4px;
+}
+
+#content .comments .comment h2 a {
+  padding-right: 5px;
 }
 
 #content .comments .comment.h {
@@ -296,6 +300,24 @@ th {
   padding: 2px 5px;
 }
 
+/*
+ * Setup
+ */
+
+.system {
+  font-family: Webdings;
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
 
 /*
  * footer
@@ -317,3 +339,4 @@ th {
   width: 960px;
   text-align: right;
 }
+

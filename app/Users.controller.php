@@ -21,7 +21,7 @@ class Users extends Controller {
   }
 
   function login($request) {
-    if (User::authenticate($request['post']['login'], $request['post']['password'])) {
+    if (isset($request['post']['login']) && isset($request['post']['password']) && (User::authenticate($request['post']['login'], $request['post']['password']))) {
       Header("Location: /page");
     } else {
       $this->build('login.html.php', 'Вход');
@@ -51,3 +51,4 @@ class Users extends Controller {
   }
 }
 ?>
+

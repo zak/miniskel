@@ -1,25 +1,42 @@
 Системные требования
-  PHP >= 5.2.0
+  PHP >= 5.3.0
   MySQL >= 5.1
   Apache (mod_write) 2.*
 
 Установка
 
-Для установки необходимо прописать данные для коннекта к базе в файле config/database.php
-Также нужно создать саму базу
+Проверить наличие файла .htaccess
+Его содержимое должно соответствовать
+
+Allow from all
+
+RewriteEngine On
+
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-s
+RewriteCond %{REQUEST_FILENAME} !-l
+
+RewriteRule ^(.+)$ /index.php?%{QUERY_STRING} [L]
+
+Далее нужно настроеть соединение с базой данных зайдя на сайт заполнить предложенную форму либо прописать данные для коннекта в ручную в файле config/database.php
+Если выбран второй способ необходимо создать саму базу
 
 
-CREATE TABLE  `articles` (
-  `id` int(12) NOT NULL auto_increment,
-  `user_id` int(12) default NULL,
-  `title` varchar(255) default NULL,
+CREATE TABLE IF NOT EXISTS  `miniskel`.`articles` (
+  `id` int(12) NOT NULL AUTO_INCREMENT,
+  `user_id` int(12) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `teaser` text NOT NULL,
   `body` text NOT NULL,
-  `updated_at` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `created_at` timestamp NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `public_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8
 
-CREATE TABLE  `comments` (
+CREATE TABLE IF NOT EXISTS  `comments` (
   `id` int(12) NOT NULL auto_increment,
   `article_id` int(12) default NULL,
   `user_id` int(12) NOT NULL,
@@ -30,7 +47,7 @@ CREATE TABLE  `comments` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-CREATE TABLE  `users` (
+CREATE TABLE IF NOT EXISTS  `users` (
   `id` int(11) NOT NULL auto_increment,
   `login` varchar(16) NOT NULL,
   `password` varchar(32) NOT NULL,
@@ -43,3 +60,4 @@ CREATE TABLE  `users` (
   `session_ip` varchar(15) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
