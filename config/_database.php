@@ -1,6 +1,7 @@
 <?php $database = array (
   'host' => 'localhost',
   'user' => 'root',
-  'pass' => 'zakzlo',
+  'pass' => '',
   'name' => 'miniskel',
 ) ?>
+
